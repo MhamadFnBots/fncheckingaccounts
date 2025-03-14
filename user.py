@@ -25,8 +25,9 @@ class RiftUser:
             'username': self.username,
             'version': TELEGRAM_USER_DATA_VERSION,
             'accounts_checked': 0,
+            'checked_accounts': [],  # List of checked account IDs
             'style': 0,
-            'gradient_type': 0,  # Default color (white)
+            'gradient_type': 0,
             'alpha_tester_1_badge': False,
             'alpha_tester_2_badge': False,
             'alpha_tester_3_badge': False,

@@ -1055,12 +1055,7 @@ async def command_login(bot, message):
         await epic_generator.kill()
         return
     
-    # Increment the accounts_checked counter after a successful check
-    user_data['accounts_checked'] += 1
-    user.update_data()
-
     account_data = await epic_generator.get_account_metadata(epic_user)
-   
     accountID = account_data.get('id', "INVALID_ACCOUNT_ID")
     if (accountID == "INVALID_ACCOUNT_ID"):
         bot.edit_message_text(chat_id=msg.chat.id, message_id=msg.message_id, text="Invalid account(banned or fortnite has not been launched).")
@@ -1068,6 +1063,14 @@ async def command_login(bot, message):
     
     bot.delete_message(msg.chat.id, msg.message_id)
     msg = bot.send_message(message.chat.id, f'✅ Logged in account {account_data.get("displayName", "HIDDEN_ID_ACCOUNT")}')
+
+    # Check if the account has already been checked by this user
+    if accountID not in user_data.get('checked_accounts', []):
+        # Increment the accounts_checked counter
+        user_data['accounts_checked'] += 1
+        # Add the account ID to the list of checked accounts
+        user_data.setdefault('checked_accounts', []).append(accountID)
+        user.update_data()
 
     # Create the accounts directory if it doesn't exist
     accounts_dir = "accounts"
@@ -1114,8 +1117,9 @@ Account Information
 🔐 Email Verified: {bool_to_emoji(account_data.get('emailVerified', False))}
 🔒 Mandatory 2FA Security: {bool_to_emoji(account_data.get('tfaEnabled', False))}
 ''')
-
+    
     # Continue with the rest of the function...
+
     
     # external connections
     connected_accounts = 0
@@ -1440,11 +1444,11 @@ async def command_stats(bot, message):
     
     style = 'rift'
     if user_data['style'] == 0:
-        style = 'rift'
+        style = 'KRD Style 1'
     elif user_data['style'] == 1:
-        style = 'origin'
+        style = 'KRD Style 2'
     elif user_data['style'] == 2:
-        style = 'raika'
+        style = 'KRD Style 3'
     elif user_data['style'] == 3:
         style = 'storm'
     elif user_data['style'] == 4:
@@ -1456,6 +1460,8 @@ async def command_stats(bot, message):
           
     msg = bot.reply_to(message, f'''
 Stats for user {message.from_user.username}(#{user_data['ID']}):
+Checked accounts: {user_data['accounts_checked']}
+Style: {style}
 
 Badges:
 Alpha Tester 1 Badge: {bool_to_emoji(user_data['alpha_tester_1_badge'])}

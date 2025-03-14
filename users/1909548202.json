@@ -2,8 +2,8 @@
     "ID": 1909548202,
     "username": "mhamad_farhad",
     "version": 0,
-    "accounts_checked": 48,
-    "style": 2,
+    "accounts_checked": 53,
+    "style": 1,
     "gradient_type": 0,
     "alpha_tester_1_badge": true,
     "alpha_tester_2_badge": false,
@@ -18,5 +18,9 @@
     "newbie_badge_active": true,
     "advanced_badge_active": true,
     "epic_badge_active": true,
-    "crown_badge_active": true
+    "crown_badge_active": true,
+    "checked_accounts": [
+        "bcbc971bc8554e1998bacc63a4fca958",
+        "0c436e7f05c24c388a489d8db3ef3379"
+    ]
 }
