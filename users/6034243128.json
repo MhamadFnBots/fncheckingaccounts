@@ -2,8 +2,12 @@
     "ID": 6034243128,
     "username": "Z_STORE9",
     "version": 0,
-    "accounts_checked": 1,
-    "style": 0,
+    "accounts_checked": 2,
+    "checked_accounts": [
+        "e6922791ba7d47a48752978f83993adc",
+        "fc4327c0bb174b538dc721a2d6c55b92"
+    ],
+    "style": 2,
     "gradient_type": 0,
     "alpha_tester_1_badge": false,
     "alpha_tester_2_badge": false,
@@ -12,11 +16,15 @@
     "advanced_badge": false,
     "epic_badge": false,
     "crown_badge": false,
+    "100_checked_badge": false,
+    "50_checked_badge": false,
     "alpha_tester_1_badge_active": false,
     "alpha_tester_2_badge_active": false,
     "alpha_tester_3_badge_active": false,
     "newbie_badge_active": false,
     "advanced_badge_active": false,
     "epic_badge_active": false,
-    "crown_badge_active": false
+    "crown_badge_active": false,
+    "100_checked_badge_active": false,
+    "50_checked_badge_active": false
 }

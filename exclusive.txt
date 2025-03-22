@@ -8,6 +8,7 @@ Pickaxe_ID_376_FNCS
 Pickaxe_FNCS_S32
 CID_035_Athena_Commando_M_Medieval
 CID_039_Athena_Commando_F_Disco
+CID_028_Athena_Commando_F
 
 CID_660_Athena_Commando_F_BandageNinjaBlue
 CID_619_Athena_Commando_F_TechLlama

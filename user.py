@@ -22,7 +22,7 @@ class RiftUser:
         os.makedirs(os.path.dirname(user_path), exist_ok=True)
         self.user_data = {
             'ID': self.userID,
-            'username': self.username,
+            'username': self.username if self.username else "Unknown",
             'version': TELEGRAM_USER_DATA_VERSION,
             'accounts_checked': 0,
             'checked_accounts': [],  # List of checked account IDs
@@ -35,13 +35,17 @@ class RiftUser:
             'advanced_badge': False,
             'epic_badge': False,
             'crown_badge': False,
+            '100_checked_badge': False,
+            '50_checked_badge': False,
             'alpha_tester_1_badge_active': False,
             'alpha_tester_2_badge_active': False,
             'alpha_tester_3_badge_active': False,
             'newbie_badge_active': False,
             'advanced_badge_active': False,
             'epic_badge_active': False,
-            'crown_badge_active': False
+            'crown_badge_active': False,
+            '100_checked_badge_active': False,
+            '50_checked_badge_active': False,
         }
     
         with open(user_path, 'w') as user_data_file:

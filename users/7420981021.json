@@ -13,11 +13,15 @@
     "advanced_badge": false,
     "epic_badge": false,
     "crown_badge": false,
+    "100_checked_badge": false,
+    "50_checked_badge": false,
     "alpha_tester_1_badge_active": false,
     "alpha_tester_2_badge_active": false,
     "alpha_tester_3_badge_active": false,
     "newbie_badge_active": false,
     "advanced_badge_active": false,
     "epic_badge_active": false,
-    "crown_badge_active": false
+    "crown_badge_active": false,
+    "100_checked_badge_active": false,
+    "50_checked_badge_active": false
 }

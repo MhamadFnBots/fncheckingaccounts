@@ -1,0 +1,31 @@
+{
+    "ID": 6213965773,
+    "username": "azinseller1",
+    "version": 0,
+    "accounts_checked": 3,
+    "checked_accounts": [
+        "ec2e3eb607ac4108b040578d8f27d9a4",
+        "8ad67b982042411f921501c6011e539e",
+        "9c6779523dc445a4b232e7b6b6a73c25"
+    ],
+    "style": 0,
+    "gradient_type": 2,
+    "alpha_tester_1_badge": false,
+    "alpha_tester_2_badge": false,
+    "alpha_tester_3_badge": false,
+    "newbie_badge": false,
+    "advanced_badge": false,
+    "epic_badge": false,
+    "crown_badge": false,
+    "100_checked_badge": false,
+    "50_checked_badge": false,
+    "alpha_tester_1_badge_active": false,
+    "alpha_tester_2_badge_active": false,
+    "alpha_tester_3_badge_active": false,
+    "newbie_badge_active": false,
+    "advanced_badge_active": false,
+    "epic_badge_active": false,
+    "crown_badge_active": false,
+    "100_checked_badge_active": false,
+    "50_checked_badge_active": false
+}

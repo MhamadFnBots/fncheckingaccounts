@@ -31,6 +31,7 @@ class EpicUser:
 
         # api response for login link generation
         self.access_token = data.get("access_token", "")
+        self.account_id = data.get("account_id", "")
         self.expires_in = data.get("expires_in", 0)
         self.expires_at = data.get("expires_at", "")
         self.token_type = data.get("token_type", "")
@@ -107,6 +108,32 @@ class EpicGenerator:
 
     async def kill(self) -> None:
         await self.http.close()
+
+
+    async def set_support_a_creator(self, user: EpicUser, creator_code: str) -> bool:
+        """
+        Set the Support-A-Creator code for the user.
+        """
+        url = f"https://fortnite-public-service-prod11.ol.epicgames.com/fortnite/api/game/v2/profile/{user.account_id}/client/SetAffiliateName?profileId=common_core"
+        headers = {
+            "Authorization": f"bearer {user.access_token}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "affiliateName": creator_code
+        }
+
+        try:
+            async with self.http.post(url, headers=headers, json=payload) as response:
+                if response.status == 200:
+                    return True
+                else:
+                    print(f"Failed to set SAC code: {response.status} - {await response.text()}")
+                    return False
+        except Exception as e:
+            print(f"Error setting SAC code: {e}")
+            return False
+
     
     async def get_access_token(self) -> str:
         # getting the access token from epic's api(REQUIRES usage of EPIC_API_SWITCH_TOKEN as Authorization in headers for it to work)
@@ -232,6 +259,7 @@ class EpicGenerator:
             bot.send_message(message.chat.id, f'❌ An error occurred while completing authentication.')
             return None
         
+
     async def create_device_auths(self, user: EpicUser) -> dict:
         # creates device auth
         # REQUIRES usage of user.access_token as Authorization in headers
@@ -363,7 +391,32 @@ class EpicGenerator:
         
         if affiliate_response.status != 200:
             print(f"Error setting affiliate name ({affiliate_response.status})")
+
+
+
+    async def get_friend_list(self, user: EpicUser) -> list:
+        url = f'https://friends-public-service-prod.ol.epicgames.com/friends/api/public/friends/{user.account_id}'
+        headers = {
+        "Authorization": f"bearer {user.access_token}"
+        }
+
+        async with self.http.get(url, headers=headers) as response:
+            if response.status != 200:
+                return []
         
+            return await response.json()
+
+    async def remove_friend(self, user: EpicUser, friend_account_id: str) -> bool:
+        url = f'https://friends-public-service-prod.ol.epicgames.com/friends/api/public/friends/{user.account_id}/{friend_account_id}'
+        headers = {
+            "Authorization": f"bearer {user.access_token}"
+        }
+
+        async with self.http.delete(url, headers=headers) as response:
+            return response.status == 204
+
+
+
     async def get_locker_data(self, user: EpicUser) -> LockerData:
         # gets locker arrays
         # locker_categories - the locker categories we render
@@ -659,7 +712,8 @@ class EpicGenerator:
 
         past_seasons = {}
         seasons_info = []
-            
+
+        
         # seasons infos
         past_seasons = athena_data.get("profileChanges", [{}])[0].get("profile", {}).get("stats", {}).get("attributes", {}).get("past_seasons", [])
         total_wins = sum(season.get("numWins", 0) for season in past_seasons)

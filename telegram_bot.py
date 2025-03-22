@@ -16,9 +16,10 @@ from epic_auth import EpicUser, EpicGenerator, EpicEndpoints
 from user import RiftUser
 from cosmetic import FortniteCosmetic
 from commands import (
-    command_start, command_help, command_login, command_style, command_badges, command_stats,
-    send_style_message, send_badges_message, available_styles, avaliable_badges
+command_start, command_help, command_login, command_style, command_badges, command_stats,
+command_clear, command_leaderboard, send_style_message, send_badges_message, available_styles, avaliable_badges
 )
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -31,13 +32,14 @@ telegram_bot = telebot.TeleBot(TELEGRAM_API_TOKEN)
 
 # Set bot commands
 telegram_bot.set_my_commands([
-    telebot.types.BotCommand("/start", "Setup your user to start skinchecking."),
     telebot.types.BotCommand("/help", "Display Basic Info and the commands."),
     telebot.types.BotCommand("/login", "Skincheck your Epic Games account."),
+    telebot.types.BotCommand("/clear", "Clear your accounts friend list."),
     telebot.types.BotCommand("/style", "Customize your checker's style."),
     telebot.types.BotCommand("/userpaint", "Customize your username color."),
     telebot.types.BotCommand("/badges", "Toggle your owned badges."),
-    telebot.types.BotCommand("/stats", "View your stats.")
+    telebot.types.BotCommand("/stats", "View your stats."),
+    telebot.types.BotCommand("/leaderboard", "See top 5 Users.")
 ])
 
 # Command handlers
@@ -68,6 +70,14 @@ def handle_badges(message):
 def handle_stats(message):
     asyncio.run(command_stats(telegram_bot, message))
 
+@telegram_bot.message_handler(commands=['leaderboard'])
+def handle_leaderboard(message):
+    command_leaderboard(telegram_bot, message)
+
+@telegram_bot.message_handler(commands=['clear'])
+def handle_clear(message):
+    asyncio.run(command_clear(telegram_bot, message))
+
 @telegram_bot.message_handler(commands=['userpaint'])
 def handle_userpaint(message):
     user = RiftUser(message.from_user.id, message.from_user.username)
@@ -78,7 +88,6 @@ def handle_userpaint(message):
 
     # Create a keyboard with color options
     markup = InlineKeyboardMarkup()
-    markup.add(InlineKeyboardButton("🌈 Rainbow", callback_data="color_rainbow"))
     markup.add(InlineKeyboardButton("🔵 Blue", callback_data="color_blue"))
     markup.add(InlineKeyboardButton("🟡 Yellow", callback_data="color_yellow"))
     markup.add(InlineKeyboardButton("🟢 Green", callback_data="color_green"))
@@ -161,6 +170,6 @@ def handle_badge_navigation(call):
         send_badges_message(telegram_bot, call.message.chat.id, badge_index, user_data)
 
 # Start the bot
-print("Starting Rift Checker Bot...")
+print("Starting KRD CHECKER BOT...")
 if __name__ == '__main__':
     telegram_bot.infinity_polling()

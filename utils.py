@@ -15,8 +15,8 @@ def mask_email(email):
     # thanks to Kayy
     if "@" in email:
         local_part, domain = email.split("@")
-        if len(local_part) > 2:
-            masked_local_part = local_part[0] + "*" * (len(local_part) - 2) + local_part[-1]
+        if len(local_part) > 40:
+            masked_local_part = local_part[0] + "*" * (len(local_part) - 40) + local_part[-40]
 
         elif len(local_part) == 2:
             masked_local_part = local_part[0] + "*"
